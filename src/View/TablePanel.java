@@ -1,60 +1,95 @@
 package View;
 
+import Model.Parent;
 import Model.Student;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.List;
 
 
-/**
- * Created by user on 09.04.2017.
- */
 public class TablePanel extends JPanel{
     private List<Student> studentsList;
-    private int countStudOnPage = 20;
+    private List<Parent> dadsList;
+    private List<Parent> momsList;
+    private int countStudOnPage = 10;
     private int currentPage = 1;
 
+    private int getNumberofMaxPage(){
+        return ((studentsList.size()-1)/countStudOnPage + 1);
+    }
 
-    public TablePanel(List<Student> studentsList){
+    public TablePanel(List<Student> studentsList, List<Parent> fathersList, List<Parent> mothersList){
         this.studentsList = studentsList;
+        this.dadsList = fathersList;
+        this.momsList = mothersList;
         setLayout(new BorderLayout());
-        add(new JScrollPane(makeTable(studentsList)));
+        add(new JScrollPane(makeTable(studentsList, fathersList, mothersList)));
         add(makeTableToolBar(), BorderLayout.SOUTH);
     }
 
-    public JTable makeTable(List<Student> studentsList){
+    public JTable makeTable(List<Student> studentsList, List<Parent> fathersList, List<Parent> mothersList){
         JTable tableWithStudents = new JTable(new Object[countStudOnPage][7], new String[]
                 {"ФИО студента", "ФИО отца","Заработок отца","ФИО матери","Заработок матери","Число братьев","Число сестер"});
         tableWithStudents.setEnabled(false);
 
-        for(int i = 0; i < studentsList.size(); i++){
-            tableWithStudents.setValueAt(studentsList.get(i).getSurName() +
-                    " " + studentsList.get(i).getFirstName() +
-                    " " + studentsList.get(i).getSecondName(),i,0);
-            tableWithStudents.setValueAt(studentsList.get(i).getBrotherNum(),i,5);
+        int firstStudOnPage = countStudOnPage*(currentPage-1);
+        for(int position = 0, stud = firstStudOnPage; position < countStudOnPage && stud < studentsList.size(); position++, stud++){
+            tableWithStudents.setValueAt(studentsList.get(stud).getSurName() +
+                    " " + studentsList.get(stud).getFirstName() +
+                    " " + studentsList.get(stud).getSecondName(),position,0);
+            tableWithStudents.setValueAt(fathersList.get(stud).getSurName() +
+                    " " + fathersList.get(stud).getFirstName() +
+                    " " + fathersList.get(stud).getSecondName(),position,1);
+            tableWithStudents.setValueAt(fathersList.get(stud).getSalary(),position,2);
+            tableWithStudents.setValueAt(mothersList.get(stud).getSurName() +
+                    " " + mothersList.get(stud).getFirstName() +
+                    " " + mothersList.get(stud).getSecondName(),position,3);
+            tableWithStudents.setValueAt(mothersList.get(stud).getSalary(),position,4);
+            tableWithStudents.setValueAt(studentsList.get(stud).getBrotherNum(),position,5);
+            tableWithStudents.setValueAt(studentsList.get(stud).getSisterNum(),position,6);
         }
-
         return tableWithStudents;
     }
 
     private JPanel makeTableToolBar(){
         JPanel panelToolBar = new JPanel();
-        JButton firstButton = new JButton("Первая");
-        panelToolBar.add(firstButton);
-        JButton prevButton = new JButton("Предыдущая");
-        panelToolBar.add(prevButton);
-        JButton nextButton = new JButton("Следующая");
-        panelToolBar.add(nextButton);
-        JButton lastButton = new JButton("Последняя");
-        panelToolBar.add(lastButton);
+        JButton firstPageButton = new JButton("Первая");
+        panelToolBar.add(firstPageButton);
+        JButton prevPageButton = new JButton("Предыдущая");
+        panelToolBar.add(prevPageButton);
+        String pageInfoStr = "Страница " + currentPage + " из " + getNumberofMaxPage();
+        JLabel pageInfo = new JLabel(pageInfoStr);
+        panelToolBar.add(pageInfo);
+        JButton nextPageButton = new JButton("Следующая");
+        panelToolBar.add(nextPageButton);
+        JButton lastPageButton = new JButton("Последняя");
+        panelToolBar.add(lastPageButton);
+        JLabel jlab = new JLabel("  Cтрок на странице:");
+        panelToolBar.add(jlab);
+        String[] numberDisplayingStudents = {"5", "10", "20", "30", "40", "50"};
+        JComboBox<String> checkNumberToDisplay = new JComboBox<>(numberDisplayingStudents);
+        checkNumberToDisplay.setSelectedIndex(Arrays.asList(numberDisplayingStudents).indexOf(Integer.toString(countStudOnPage)));
+        checkNumberToDisplay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (countStudOnPage != Integer.parseInt(checkNumberToDisplay.getSelectedItem().toString())){
+                    countStudOnPage = Integer.parseInt(checkNumberToDisplay.getSelectedItem().toString());
+                    updateTable();
+                }
+            }
+        });
+        panelToolBar.add(checkNumberToDisplay);
         return panelToolBar;
     }
 
     public void updateTable(){
         removeAll();
         updateUI();
-        add(new JScrollPane(makeTable(studentsList)));
+        add(new JScrollPane(makeTable(studentsList, dadsList, momsList)));
         add(makeTableToolBar(), BorderLayout.SOUTH);
         revalidate();
         repaint();

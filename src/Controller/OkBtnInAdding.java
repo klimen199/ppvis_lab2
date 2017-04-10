@@ -63,7 +63,7 @@ public class OkBtnInAdding {
             return;
         }
 
-        JOptionPane.showMessageDialog(null, "all OK ");
+        //JOptionPane.showMessageDialog(null, "all OK ");
 
         Student stud = new Student(surName,firstName,secName,intBrothers,intSisters);
         Parent dad = new Parent(dadSurName,dadFirstName,dadSecName,intDadSalary);

@@ -1,5 +1,6 @@
 package View;
 
+import Model.Parent;
 import Model.Student;
 
 import javax.swing.*;
@@ -16,13 +17,10 @@ public class ViewEntryPoint {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         MenuBar myMenuBar = new MenuBar();
         ToolBar myToolBar = new ToolBar();
-        tablePanel = new TablePanel(Student.studentsList);
-        JPanel centerPanel = new JPanel();
-        centerPanel.setPreferredSize(new Dimension(900,900));
-        centerPanel.add(tablePanel);
+        tablePanel = new TablePanel(Student.studentsList, Parent.fathersList, Parent.mothersList);
 
 
-        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.add(tablePanel, BorderLayout.CENTER);
         frame.add(myToolBar.getToolBar(), BorderLayout.NORTH);
         frame.setJMenuBar(myMenuBar.getMenuBar());
 
