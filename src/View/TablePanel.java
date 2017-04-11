@@ -59,15 +59,63 @@ public class TablePanel extends JPanel{
         JPanel panelToolBar = new JPanel();
         JButton firstPageButton = new JButton("Первая");
         panelToolBar.add(firstPageButton);
+
+        firstPageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentPage = 1;
+                updateTable();
+            }
+        });
+
         JButton prevPageButton = new JButton("Предыдущая");
         panelToolBar.add(prevPageButton);
+
+        prevPageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(currentPage > 1){
+                    currentPage--;
+                    updateTable();
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "It's the begining.");
+            }
+        });
+
         String pageInfoStr = "Страница " + currentPage + " из " + getNumberofMaxPage();
         JLabel pageInfo = new JLabel(pageInfoStr);
         panelToolBar.add(pageInfo);
         JButton nextPageButton = new JButton("Следующая");
         panelToolBar.add(nextPageButton);
+
+        ///
+        ///     ASK
+        ///
+        nextPageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(currentPage < getNumberofMaxPage()){
+                    currentPage++;
+                    updateTable();
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "It's the end of the list.");
+            }
+        });
+
+
         JButton lastPageButton = new JButton("Последняя");
         panelToolBar.add(lastPageButton);
+
+        lastPageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentPage = getNumberofMaxPage();
+                updateTable();
+            }
+        });
+
         JLabel jlab = new JLabel("  Cтрок на странице:");
         panelToolBar.add(jlab);
         String[] numberDisplayingStudents = {"5", "10", "20", "30", "40", "50"};

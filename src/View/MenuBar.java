@@ -43,6 +43,7 @@ public class MenuBar {
         exitItem.addActionListener(new ExitProgramListener());
 
         addStudentTool.addActionListener(new AddStudentListener());
+        searchStudentTool.addActionListener(new SearchStudentListener());
 
         menuBar.add(fileMenu);
         menuBar.add(toolsMenu);

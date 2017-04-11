@@ -1,6 +1,7 @@
 package View;
 
 import Controller.AddStudentListener;
+import Controller.SearchStudentListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,6 +47,7 @@ public class ToolBar {
         toolBar.add(searchStudent);
 
         addStudent.addActionListener(new AddStudentListener());
+        searchStudent.addActionListener(new SearchStudentListener());
 
 
         toolBar.addSeparator();
