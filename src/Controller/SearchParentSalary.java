@@ -30,7 +30,6 @@ public class SearchParentSalary {
         processInput(dadMin, dadMax, momMin, momMax);
 
 
-        if (!dadMin.equals("") && !dadMax.equals("") && !momMin.equals("") && !momMax.equals("")){
             for (int i = 0; i < Student.studentsList.size(); i++){
                 if (dadMinInt <= Parent.fathersList.get(i).getSalary()
                         && dadMaxInt >= Parent.fathersList.get(i).getSalary()
@@ -40,150 +39,8 @@ public class SearchParentSalary {
                 }
             }
             checkIsEmpty();
-            return;
-        }
 
-        if (!dadMin.equals("") && dadMax.equals("") && momMin.equals("") && momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size(); i++){
-                if (dadMinInt <= Parent.fathersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
-        if (!dadMin.equals("") && dadMax.equals("") && !momMin.equals("") && momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size(); i++){
-                if (dadMinInt <= Parent.fathersList.get(i).getSalary()
-                        && momMinInt <= Parent.mothersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
-        if (dadMin.equals("") && !dadMax.equals("") && momMin.equals("") && !momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size(); i++){
-                if (dadMaxInt >= Parent.fathersList.get(i).getSalary()
-                        && momMaxInt >= Parent.mothersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
 
-        if (!dadMin.equals("") && dadMax.equals("") && momMin.equals("") && !momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size(); i++){
-                if (dadMinInt <= Parent.fathersList.get(i).getSalary()
-                        && momMaxInt >= Parent.mothersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
-        if (dadMin.equals("") && !dadMax.equals("") && !momMin.equals("") && momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size(); i++){
-                if (dadMaxInt >= Parent.fathersList.get(i).getSalary()
-                        && momMinInt <= Parent.mothersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
-        if (dadMin.equals("") && !dadMax.equals("") && momMin.equals("") && momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size(); i++){
-                if (dadMaxInt >= Parent.fathersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
-        if (!dadMin.equals("") && !dadMax.equals("") && momMin.equals("") && momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size(); i++){
-                if (dadMinInt <= Parent.fathersList.get(i).getSalary()
-                        && dadMaxInt >= Parent.fathersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
-        if (!dadMin.equals("") && !dadMax.equals("") && momMin.equals("") && !momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size(); i++){
-                if (dadMinInt <= Parent.fathersList.get(i).getSalary()
-                        && dadMaxInt >= Parent.fathersList.get(i).getSalary()
-                        && momMaxInt >= Parent.mothersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
-        if (!dadMin.equals("") && !dadMax.equals("") && !momMin.equals("") && momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size(); i++){
-                if (dadMinInt <= Parent.fathersList.get(i).getSalary()
-                        && dadMaxInt >= Parent.fathersList.get(i).getSalary()
-                        && momMinInt <= Parent.mothersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
-        if (dadMin.equals("") && dadMax.equals("") && !momMin.equals("") && momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size();i++){
-                if (momMinInt <= Parent.mothersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
-        if (dadMin.equals("") && dadMax.equals("") && momMin.equals("") && !momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size();i++){
-                if (momMaxInt >= Parent.mothersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
-        if (dadMin.equals("") && dadMax.equals("") && !momMin.equals("") && !momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size();i++){
-                if (momMinInt <= Parent.mothersList.get(i).getSalary()
-                        && momMaxInt >= Parent.mothersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
-        if (dadMin.equals("") && !dadMax.equals("") && !momMin.equals("") && !momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size();i++){
-                if (dadMaxInt >= Parent.fathersList.get(i).getSalary()
-                        && momMinInt <= Parent.mothersList.get(i).getSalary()
-                        && momMaxInt >= Parent.mothersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
-        if (!dadMin.equals("") && dadMax.equals("") && !momMin.equals("") && !momMax.equals("")){
-            for (int i = 0; i < Student.studentsList.size();i++){
-                if (dadMinInt <= Parent.fathersList.get(i).getSalary()
-                        && momMinInt <= Parent.mothersList.get(i).getSalary()
-                        && momMaxInt >= Parent.mothersList.get(i).getSalary()){
-                    addThisStudent(i);
-                }
-            }
-            checkIsEmpty();
-            return;
-        }
     }
 
 
@@ -199,7 +56,7 @@ public class SearchParentSalary {
             dadMaxInt = Integer.parseInt(dadMax);
         }
         catch (NumberFormatException e){
-            dadMaxInt =0;
+            dadMaxInt =Integer.MAX_VALUE;
         }
         try{
             momMinInt = Integer.parseInt(momMin);
@@ -211,7 +68,7 @@ public class SearchParentSalary {
             momMaxInt = Integer.parseInt(momMax);
         }
         catch (NumberFormatException e){
-            momMaxInt = 0;
+            momMaxInt = Integer.MAX_VALUE;
         }
     }
     
