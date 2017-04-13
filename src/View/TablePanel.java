@@ -134,6 +134,12 @@ public class TablePanel extends JPanel{
         return panelToolBar;
     }
 
+    public void setStudents(List<Student> studentsList, List<Parent> fathersList, List<Parent> mothersList) {
+        this.studentsList = studentsList;
+        this.dadsList = fathersList;
+        this.momsList = mothersList;
+    }
+
     public void updateTable(){
         removeAll();
         updateUI();

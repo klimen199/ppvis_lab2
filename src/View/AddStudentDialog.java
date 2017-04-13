@@ -44,7 +44,6 @@ public class AddStudentDialog {
         numOfSisters.setBorder(new TitledBorder("Кол-во сестер"));
 
         JButton okBtn = new JButton("OK");
-        //okBtn.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
