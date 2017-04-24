@@ -3,6 +3,9 @@ package View;
 import javax.swing.*;
 import Controller.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class MenuBar {
 
     JMenuBar menuBar;
@@ -42,9 +45,33 @@ public class MenuBar {
 
         exitItem.addActionListener(new ExitProgramListener());
 
-        addStudentTool.addActionListener(new AddStudentListener());
-        deleteStudentTool.addActionListener(new DeleteStudentListener());
-        searchStudentTool.addActionListener(new SearchStudentListener());
+        addStudentTool.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog add = new AddStudentDialog().getDialog();
+                add.setSize(555,500);
+                add.setVisible(true);
+                add.setLocationRelativeTo(null);
+            }
+        });
+        deleteStudentTool.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog del = new DeleteStudentDialog().getDialog();
+                del.setSize(700,250);
+                del.setVisible(true);
+                del.setLocationRelativeTo(null);
+            }
+        });
+        searchStudentTool.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog search = new SearchStudentDialog().getDialog();
+                search.setSize(770,500);
+                search.setVisible(true);
+                search.setLocationRelativeTo(null);
+            }
+        });
 
         menuBar.add(fileMenu);
         menuBar.add(toolsMenu);

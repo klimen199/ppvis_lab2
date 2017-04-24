@@ -1,11 +1,8 @@
 package View;
 
-import Controller.AddStudentListener;
-import Controller.DeleteStudentListener;
-import Controller.SearchStudentListener;
-
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class ToolBar {
@@ -47,9 +44,33 @@ public class ToolBar {
         toolBar.add(deleteStudent);
         toolBar.add(searchStudent);
 
-        addStudent.addActionListener(new AddStudentListener());
-        deleteStudent.addActionListener(new DeleteStudentListener());
-        searchStudent.addActionListener(new SearchStudentListener());
+        addStudent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog add = new AddStudentDialog().getDialog();
+                add.setSize(555,500);
+                add.setVisible(true);
+                add.setLocationRelativeTo(null);
+             }
+        });
+        deleteStudent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog del = new DeleteStudentDialog().getDialog();
+                del.setSize(700,250);
+                del.setVisible(true);
+                del.setLocationRelativeTo(null);
+            }
+        });
+        searchStudent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog search = new SearchStudentDialog().getDialog();
+                search.setSize(770,500);
+                search.setVisible(true);
+                search.setLocationRelativeTo(null);
+            }
+        });
 
 
         toolBar.addSeparator();
