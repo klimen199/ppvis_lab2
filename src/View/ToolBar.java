@@ -1,6 +1,7 @@
 package View;
 
 import Controller.AddStudentListener;
+import Controller.DeleteStudentListener;
 import Controller.SearchStudentListener;
 
 import javax.swing.*;
@@ -47,6 +48,7 @@ public class ToolBar {
         toolBar.add(searchStudent);
 
         addStudent.addActionListener(new AddStudentListener());
+        deleteStudent.addActionListener(new DeleteStudentListener());
         searchStudent.addActionListener(new SearchStudentListener());
 
 

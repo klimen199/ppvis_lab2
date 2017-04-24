@@ -2,19 +2,22 @@ package Controller;
 
 import Model.Parent;
 import Model.Student;
+import View.ViewEntryPoint;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchParentFIO {
-    List<Student> studentsSearchList = new ArrayList<>(35);
-    List<Parent> fathersSearchList = new ArrayList<>(35);
-    List<Parent> mothersSearchList = new ArrayList<>(35);
+/**
+ * Created by user on 24.04.2017.
+ */
+public class DeleteParentFIO {
 
-    public SearchParentFIO (String dadSurName, String dadFirstName, String dadSecName,
-                            String mumSurName, String mumFirstName, String mumSecName){
+    private List<String> deletedStud = new ArrayList<>(35);
 
+
+    public DeleteParentFIO(String dadSurName, String dadFirstName, String dadSecName,
+                           String mumSurName, String mumFirstName, String mumSecName){
         boolean goNext = false;
         if (!(dadSurName.equals("") || dadFirstName.equals("") || dadSecName.equals(""))){
             goNext = true;
@@ -24,7 +27,6 @@ public class SearchParentFIO {
         }
         if (!goNext){
             JOptionPane.showMessageDialog(null, "Fill one parent Full FIO.");
-            notChangeTable();
             return;
         }
         if (!(dadSurName.equals("") && dadFirstName.equals("") && dadSecName.equals("")) &&
@@ -33,10 +35,11 @@ public class SearchParentFIO {
                 if(dadSurName.equals(Parent.fathersList.get(i).getSurName()) &&
                         dadFirstName.equals(Parent.fathersList.get(i).getFirstName()) &&
                         dadSecName.equals(Parent.fathersList.get(i).getSecondName())){
-                    addThisStudent(i);
+                    removeThisStudent(i);
+                    i--;
                 }
             }
-            checkIsEmpty();
+            deleteInfo();
             return;
         }
         if (!(mumSurName.equals("") && mumFirstName.equals("") && mumSecName.equals("")) &&
@@ -45,10 +48,11 @@ public class SearchParentFIO {
                 if(mumSurName.equals(Parent.mothersList.get(i).getSurName()) &&
                         mumFirstName.equals(Parent.mothersList.get(i).getFirstName()) &&
                         mumSecName.equals(Parent.mothersList.get(i).getSecondName())){
-                    addThisStudent(i);
+                    removeThisStudent(i);
+                    i--;
                 }
             }
-            checkIsEmpty();
+            deleteInfo();
             return;
         }
         if (!("".equals(mumSurName) && mumFirstName.equals("") && mumSecName.equals("")) &&
@@ -60,41 +64,34 @@ public class SearchParentFIO {
                         dadSurName.equals(Parent.fathersList.get(i).getSurName()) &&
                         dadFirstName.equals(Parent.fathersList.get(i).getFirstName()) &&
                         dadSecName.equals(Parent.fathersList.get(i).getSecondName())){
-                    addThisStudent(i);
+                    removeThisStudent(i);
+                    i--;
                 }
             }
-            checkIsEmpty();
+            deleteInfo();
         }
     }
 
 
-    private void addThisStudent(int i){
-        studentsSearchList.add(Student.studentsList.get(i));
-        fathersSearchList.add(Parent.fathersList.get(i));
-        mothersSearchList.add(Parent.mothersList.get(i));
+    private void removeThisStudent(int i){
+        deletedStud.add(Student.studentsList.get(i).getSurName() + " " +
+                Student.studentsList.get(i).getFirstName() + " " +
+                Student.studentsList.get(i).getSecondName());
+        Student.studentsList.remove(i);
+        Parent.fathersList.remove(i);
+        Parent.mothersList.remove(i);
     }
-
-    private void notChangeTable(){
-        studentsSearchList = Student.studentsList;
-        fathersSearchList = Parent.fathersList;
-        mothersSearchList = Parent.mothersList;
-    }
-
-    private void checkIsEmpty(){
-        if (studentsSearchList.size() == 0){
-            JOptionPane.showMessageDialog(null, "Don't find such students.");
-            notChangeTable();
+    private void deleteInfo(){
+        String output="";
+        for (String s : deletedStud) {
+            output+=s+"\n";
         }
+        if (output.equals("")) {
+            JOptionPane.showMessageDialog(null, "По данному запросу студентов не найдено");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Удален(ы)\n"+output);
+        }
+        ViewEntryPoint.tablePanel.updateTable();
     }
-
-    public List getSearchStudList(){
-        return studentsSearchList;
-    }
-    public List getSearchDadList(){
-        return fathersSearchList;
-    }
-    public List getSearchMumList(){
-        return mothersSearchList;
-    }
-
 }

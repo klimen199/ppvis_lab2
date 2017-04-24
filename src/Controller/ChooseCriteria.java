@@ -4,11 +4,11 @@ package Controller;
 import javax.swing.*;
 
 
-public class ChooseSearchingCriteria {
+public class ChooseCriteria {
 
 
-    public Box addSearchCriteria(Box mainBox, JComboBox criteria,
-                                 Box studentFIOBox, Box parentFIOBox, Box brotherSisterBox, Box parentSalaryBox) {
+    public Box addCriteria(Box mainBox, JComboBox criteria,
+                           Box studentFIOBox, Box parentFIOBox, Box brotherSisterBox, Box parentSalaryBox) {
         int choice = criteria.getSelectedIndex();
         switch (choice){
             case 0:{

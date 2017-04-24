@@ -1,22 +1,15 @@
 package View;
 
 import Controller.*;
-import Model.Parent;
-import Model.Student;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 
-public class SearchStudentDialog {
-
+public class DeleteStudentDialog {
     JDialog dialog;
-    TablePanel tablePanel = new TablePanel(Student.studentsList, Parent.fathersList,Parent.mothersList);
-
 
     JTextField studentFirstName;
     JTextField studentSecondName;
@@ -37,29 +30,22 @@ public class SearchStudentDialog {
     JTextField numOfSistersMax;
     public Box mainBox;
 
-    public SearchStudentDialog(){
-        List<Student> studentsSearchList = new ArrayList<>(35);
-        studentsSearchList = Student.studentsList;
-        List<Parent> fathersSearchList = new ArrayList<>(35);
-        fathersSearchList = Parent.fathersList;
-        List<Parent> mothersSearchList = new ArrayList<>(35);
-        mothersSearchList = Parent.mothersList;
 
+    public DeleteStudentDialog(){
         dialog = new JDialog();
         mainBox = Box.createVerticalBox();
-        mainBox.add(searchHeadBox());
+        mainBox.add(delHeadBox());
         mainBox.add(Box.createVerticalStrut(7));
-        mainBox.add(Box.createVerticalStrut(1));
-        mainBox.add(Box.createVerticalStrut(20));
-        mainBox.add(searchTableBox());
+        mainBox.add(Box.createVerticalStrut(150));
+        mainBox.add(Box.createVerticalStrut(70));
 
         dialog.add(mainBox);
     }
 
-    private Box searchHeadBox(){
-        JLabel searchLabel = new JLabel("Выберите критерий поиска:");
-        String[] searchCritarion = {"","ФИО студента", "ФИО родителя", "Число братьев/сестер", "З/п родителя"};
-        JComboBox<String> chooseCriteria = new JComboBox<>(searchCritarion);
+    private Box delHeadBox(){
+        JLabel searchLabel = new JLabel("Выберите критерий удаления:");
+        String[] delCritarion = {"","ФИО студента", "ФИО родителя", "Число братьев/сестер", "З/п родителя"};
+        JComboBox<String> chooseCriteria = new JComboBox<>(delCritarion);
         chooseCriteria.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,13 +66,7 @@ public class SearchStudentDialog {
         return criteriaBox;
     }
 
-    private Box searchTableBox(){
-        Box tableBox = Box.createHorizontalBox();
-        tableBox.add(Box.createHorizontalStrut(20));
-        tableBox.add(tablePanel);
-        tableBox.add(Box.createHorizontalStrut(20));
-        return tableBox;
-    }
+
     private Box studentFIOBox(){
         studentSurName = new JTextField(10);
         studentSurName.setBorder(new TitledBorder("Фамилия"));
@@ -99,10 +79,8 @@ public class SearchStudentDialog {
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SearchStudentFIO temp = new SearchStudentFIO(studentSurName.getText(),studentFirstName.getText(),studentSecondName.getText());
-                tablePanel.setStudents(temp.getSearchStudList(),temp.getSearchDadList(),temp.getSearchMumList());
-                tablePanel.updateTable();
-               // temp.getSearchRezult(studentSurName.toString(),studentFirstName.toString(),studentSecondName.toString());
+                DeleteStudentFIO temp = new DeleteStudentFIO(studentSurName.getText(),studentFirstName.getText(),studentSecondName.getText());
+
             }
         });
         Box unityBox = Box.createVerticalBox();
@@ -140,10 +118,8 @@ public class SearchStudentDialog {
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SearchParentFIO temp = new SearchParentFIO(dadSurName.getText(),dadFirstName.getText(),dadSecondName.getText(),
+                DeleteParentFIO temp = new DeleteParentFIO(dadSurName.getText(),dadFirstName.getText(),dadSecondName.getText(),
                         mumSurName.getText(),mumFirstName.getText(),mumSecondName.getText());
-                tablePanel.setStudents(temp.getSearchStudList(),temp.getSearchDadList(),temp.getSearchMumList());
-                tablePanel.updateTable();
             }
         });
         Box parentFIOBox = Box.createVerticalBox();
@@ -196,10 +172,8 @@ public class SearchStudentDialog {
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SearchBrotherSister temp = new SearchBrotherSister(numOfBrothersMin.getText(),
+                DeleteBrotherSister temp = new DeleteBrotherSister(numOfBrothersMin.getText(),
                         numOfBrothersMax.getText(), numOfSistersMin.getText(),numOfSistersMax.getText());
-                tablePanel.setStudents(temp.getSearchStudList(),temp.getSearchDadList(),temp.getSearchMumList());
-                tablePanel.updateTable();
             }
         });
         Box unityBox = Box.createVerticalBox();
@@ -240,10 +214,8 @@ public class SearchStudentDialog {
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SearchParentSalary temp = new SearchParentSalary(dadSalaryMin.getText(),
+                DeleteParentSalary temp = new DeleteParentSalary(dadSalaryMin.getText(),
                         dadSalaryMax.getText(), mumSalaryMin.getText(),mumSalaryMax.getText());
-                tablePanel.setStudents(temp.getSearchStudList(),temp.getSearchDadList(),temp.getSearchMumList());
-                tablePanel.updateTable();
             }
         });
         Box unityBox = Box.createVerticalBox();
@@ -259,7 +231,6 @@ public class SearchStudentDialog {
 
         return unityBox;
     }
-
 
     public JDialog getDialog(){
         return dialog;
