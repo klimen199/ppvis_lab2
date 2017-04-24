@@ -1,6 +1,7 @@
 package View;
 
 import Controller.*;
+import Model.DataBase;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 
 
 public class DeleteStudentDialog {
+    private DataBase dataBase;
     JDialog dialog;
 
     JTextField studentFirstName;
@@ -31,7 +33,8 @@ public class DeleteStudentDialog {
     public Box mainBox;
 
 
-    public DeleteStudentDialog(){
+    public DeleteStudentDialog(DataBase dataBase){
+        this.dataBase = dataBase;
         dialog = new JDialog();
         mainBox = Box.createVerticalBox();
         mainBox.add(delHeadBox());
@@ -79,7 +82,7 @@ public class DeleteStudentDialog {
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DeleteStudentFIO temp = new DeleteStudentFIO(studentSurName.getText(),studentFirstName.getText(),studentSecondName.getText());
+                DeleteStudentFIO temp = new DeleteStudentFIO(dataBase, studentSurName.getText(),studentFirstName.getText(),studentSecondName.getText());
 
             }
         });
@@ -118,7 +121,8 @@ public class DeleteStudentDialog {
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DeleteParentFIO temp = new DeleteParentFIO(dadSurName.getText(),dadFirstName.getText(),dadSecondName.getText(),
+                DeleteParentFIO temp = new DeleteParentFIO(dataBase,
+                        dadSurName.getText(),dadFirstName.getText(),dadSecondName.getText(),
                         mumSurName.getText(),mumFirstName.getText(),mumSecondName.getText());
             }
         });
@@ -172,8 +176,9 @@ public class DeleteStudentDialog {
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DeleteBrotherSister temp = new DeleteBrotherSister(numOfBrothersMin.getText(),
-                        numOfBrothersMax.getText(), numOfSistersMin.getText(),numOfSistersMax.getText());
+                DeleteBrotherSister temp = new DeleteBrotherSister(dataBase,
+                        numOfBrothersMin.getText(), numOfBrothersMax.getText(),
+                        numOfSistersMin.getText(),numOfSistersMax.getText());
             }
         });
         Box unityBox = Box.createVerticalBox();
@@ -214,8 +219,9 @@ public class DeleteStudentDialog {
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DeleteParentSalary temp = new DeleteParentSalary(dadSalaryMin.getText(),
-                        dadSalaryMax.getText(), mumSalaryMin.getText(),mumSalaryMax.getText());
+                DeleteParentSalary temp = new DeleteParentSalary(dataBase,
+                        dadSalaryMin.getText(), dadSalaryMax.getText(),
+                        mumSalaryMin.getText(),mumSalaryMax.getText());
             }
         });
         Box unityBox = Box.createVerticalBox();

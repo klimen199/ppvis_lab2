@@ -1,17 +1,20 @@
 package Controller;
 
+import Model.DataBase;
 import Model.Parent;
 import Model.Student;
 
 import javax.swing.*;
 
 public class OkBtnInAdding {
+    private DataBase dataBase;
 
     public void addNewStudentInfo(String surName, String firstName, String secName,
                               String dadSurName, String dadFirstName, String dadSecName, String dadSalary,
                               String mumSurName, String mumFirstName, String mumSecName, String mumSalary,
-                              String numBrohers, String numSisters){
-
+                              String numBrohers, String numSisters,
+                                  DataBase dataBase){
+        this.dataBase = dataBase;
         if (surName.equals("") || firstName.equals("") || secName.equals("")){
             JOptionPane.showMessageDialog(null, "Fill student's name.");
             return;
@@ -69,8 +72,8 @@ public class OkBtnInAdding {
         Parent dad = new Parent(dadSurName,dadFirstName,dadSecName,intDadSalary);
         Parent mum = new Parent(mumSurName,mumFirstName,mumSecName,intMumSalary);
 
-        Student.studentsList.add(stud);
-        Parent.fathersList.add(dad);
-        Parent.mothersList.add(mum);
+        dataBase.addStud(stud);
+        dataBase.addDad(dad);
+        dataBase.addMum(mum);
     }
 }

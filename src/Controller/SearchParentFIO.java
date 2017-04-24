@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.DataBase;
 import Model.Parent;
 import Model.Student;
 
@@ -8,13 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchParentFIO {
+    private DataBase dataBase;
     List<Student> studentsSearchList = new ArrayList<>(35);
     List<Parent> fathersSearchList = new ArrayList<>(35);
     List<Parent> mothersSearchList = new ArrayList<>(35);
 
-    public SearchParentFIO (String dadSurName, String dadFirstName, String dadSecName,
+    public SearchParentFIO (DataBase dataBase,
+                            String dadSurName, String dadFirstName, String dadSecName,
                             String mumSurName, String mumFirstName, String mumSecName){
-
+        this.dataBase = dataBase;
         boolean goNext = false;
         if (!(dadSurName.equals("") || dadFirstName.equals("") || dadSecName.equals(""))){
             goNext = true;
@@ -29,10 +32,10 @@ public class SearchParentFIO {
         }
         if (!(dadSurName.equals("") && dadFirstName.equals("") && dadSecName.equals("")) &&
                 (mumSurName.equals("") || mumFirstName.equals("") || mumSecName.equals(""))){
-            for (int i = 0; i < Parent.fathersList.size(); i++){
-                if(dadSurName.equals(Parent.fathersList.get(i).getSurName()) &&
-                        dadFirstName.equals(Parent.fathersList.get(i).getFirstName()) &&
-                        dadSecName.equals(Parent.fathersList.get(i).getSecondName())){
+            for (int i = 0; i < dataBase.size(); i++){
+                if(dadSurName.equals(dataBase.getDad(i).getSurName()) &&
+                        dadFirstName.equals(dataBase.getDad(i).getFirstName()) &&
+                        dadSecName.equals(dataBase.getDad(i).getSecondName())){
                     addThisStudent(i);
                 }
             }
@@ -41,10 +44,10 @@ public class SearchParentFIO {
         }
         if (!(mumSurName.equals("") && mumFirstName.equals("") && mumSecName.equals("")) &&
                 (dadSurName.equals("") || dadFirstName.equals("") || dadSecName.equals(""))){
-            for (int i = 0; i < Parent.mothersList.size(); i++){
-                if(mumSurName.equals(Parent.mothersList.get(i).getSurName()) &&
-                        mumFirstName.equals(Parent.mothersList.get(i).getFirstName()) &&
-                        mumSecName.equals(Parent.mothersList.get(i).getSecondName())){
+            for (int i = 0; i < dataBase.size(); i++){
+                if(mumSurName.equals(dataBase.getMum(i).getSurName()) &&
+                        mumFirstName.equals(dataBase.getMum(i).getFirstName()) &&
+                        mumSecName.equals(dataBase.getMum(i).getSecondName())){
                     addThisStudent(i);
                 }
             }
@@ -53,13 +56,13 @@ public class SearchParentFIO {
         }
         if (!("".equals(mumSurName) && mumFirstName.equals("") && mumSecName.equals("")) &&
                 !(dadSurName.equals("") && dadFirstName.equals("") && dadSecName.equals(""))){
-            for (int i = 0; i < Parent.mothersList.size(); i++){
-                if(mumSurName.equals(Parent.mothersList.get(i).getSurName()) &&
-                        mumFirstName.equals(Parent.mothersList.get(i).getFirstName()) &&
-                        mumSecName.equals(Parent.mothersList.get(i).getSecondName()) &&
-                        dadSurName.equals(Parent.fathersList.get(i).getSurName()) &&
-                        dadFirstName.equals(Parent.fathersList.get(i).getFirstName()) &&
-                        dadSecName.equals(Parent.fathersList.get(i).getSecondName())){
+            for (int i = 0; i < dataBase.size(); i++){
+                if(mumSurName.equals(dataBase.getMum(i).getSurName()) &&
+                        mumFirstName.equals(dataBase.getMum(i).getFirstName()) &&
+                        mumSecName.equals(dataBase.getMum(i).getSecondName()) &&
+                        dadSurName.equals(dataBase.getDad(i).getSurName()) &&
+                        dadFirstName.equals(dataBase.getDad(i).getFirstName()) &&
+                        dadSecName.equals(dataBase.getDad(i).getSecondName())){
                     addThisStudent(i);
                 }
             }
@@ -69,15 +72,15 @@ public class SearchParentFIO {
 
 
     private void addThisStudent(int i){
-        studentsSearchList.add(Student.studentsList.get(i));
-        fathersSearchList.add(Parent.fathersList.get(i));
-        mothersSearchList.add(Parent.mothersList.get(i));
+        studentsSearchList.add(dataBase.getStud(i));
+        fathersSearchList.add(dataBase.getDad(i));
+        mothersSearchList.add(dataBase.getMum(i));
     }
 
     private void notChangeTable(){
-        studentsSearchList = Student.studentsList;
-        fathersSearchList = Parent.fathersList;
-        mothersSearchList = Parent.mothersList;
+        studentsSearchList = dataBase.studentList;
+        fathersSearchList = dataBase.fatherList;
+        mothersSearchList = dataBase.motherList;
     }
 
     private void checkIsEmpty(){

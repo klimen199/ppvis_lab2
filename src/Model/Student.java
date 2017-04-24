@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Student {
-    public static List<Student> studentsList = new ArrayList<>(35);
     String surName;
     String firstName;
     String secondName;

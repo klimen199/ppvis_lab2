@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.DataBase;
 import Model.Parent;
 import Model.Student;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * Created by user on 12.04.2017.
  */
 public class SearchParentSalary {
+    private DataBase dataBase;
     List<Student> studentsSearchList = new ArrayList<>(35);
     List<Parent> fathersSearchList = new ArrayList<>(35);
     List<Parent> mothersSearchList = new ArrayList<>(35);
@@ -19,8 +21,10 @@ public class SearchParentSalary {
     int momMinInt;
     int momMaxInt;
 
-    public SearchParentSalary (String dadMin, String dadMax,
+    public SearchParentSalary (DataBase dataBase,
+                               String dadMin, String dadMax,
                                String momMin, String momMax){
+        this.dataBase = dataBase;
         if (dadMin.equals("") && dadMax.equals("") && momMin.equals("") && momMax.equals("")){
             JOptionPane.showMessageDialog(null, "Fill search fields.");
             notChangeTable();
@@ -30,11 +34,11 @@ public class SearchParentSalary {
         processInput(dadMin, dadMax, momMin, momMax);
 
 
-            for (int i = 0; i < Student.studentsList.size(); i++){
-                if (dadMinInt <= Parent.fathersList.get(i).getSalary()
-                        && dadMaxInt >= Parent.fathersList.get(i).getSalary()
-                        && momMinInt <= Parent.mothersList.get(i).getSalary()
-                        && momMaxInt >= Parent.mothersList.get(i).getSalary()){
+            for (int i = 0; i < dataBase.size(); i++){
+                if (dadMinInt <= dataBase.getDad(i).getSalary()
+                        && dadMaxInt >= dataBase.getDad(i).getSalary()
+                        && momMinInt <= dataBase.getMum(i).getSalary()
+                        && momMaxInt >= dataBase.getMum(i).getSalary()){
                     addThisStudent(i);
                 }
             }
@@ -71,18 +75,18 @@ public class SearchParentSalary {
             momMaxInt = Integer.MAX_VALUE;
         }
     }
-    
+
 
     private void notChangeTable(){
-        studentsSearchList = Student.studentsList;
-        fathersSearchList = Parent.fathersList;
-        mothersSearchList = Parent.mothersList;
+        studentsSearchList = dataBase.studentList;
+        fathersSearchList = dataBase.fatherList;
+        mothersSearchList = dataBase.motherList;
     }
 
     private void addThisStudent(int i){
-        studentsSearchList.add(Student.studentsList.get(i));
-        fathersSearchList.add(Parent.fathersList.get(i));
-        mothersSearchList.add(Parent.mothersList.get(i));
+        studentsSearchList.add(dataBase.getStud(i));
+        fathersSearchList.add(dataBase.getDad(i));
+        mothersSearchList.add(dataBase.getMum(i));
     }
 
     private void checkIsEmpty(){

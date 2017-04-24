@@ -1,6 +1,7 @@
 package Controller;
 
 
+import Model.DataBase;
 import Model.Parent;
 import Model.Student;
 import View.ViewEntryPoint;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteParentSalary {
+    private DataBase dataBase;
     int dadMinInt;
     int dadMaxInt;
     int momMinInt;
@@ -17,8 +19,10 @@ public class DeleteParentSalary {
     private List<String> deletedStud = new ArrayList<>(35);
 
 
-    public DeleteParentSalary(String dadMin, String dadMax,
+    public DeleteParentSalary(DataBase dataBase,
+                              String dadMin, String dadMax,
                               String momMin, String momMax){
+        this.dataBase = dataBase;
         if (dadMin.equals("") && dadMax.equals("") && momMin.equals("") && momMax.equals("")){
             JOptionPane.showMessageDialog(null, "Fill search fields.");
             return;
@@ -27,11 +31,11 @@ public class DeleteParentSalary {
         processInput(dadMin, dadMax, momMin, momMax);
 
 
-        for (int i = 0; i < Student.studentsList.size(); i++){
-            if (dadMinInt <= Parent.fathersList.get(i).getSalary()
-                    && dadMaxInt >= Parent.fathersList.get(i).getSalary()
-                    && momMinInt <= Parent.mothersList.get(i).getSalary()
-                    && momMaxInt >= Parent.mothersList.get(i).getSalary()){
+        for (int i = 0; i < dataBase.size(); i++){
+            if (dadMinInt <= dataBase.getDad(i).getSalary()
+                    && dadMaxInt >= dataBase.getDad(i).getSalary()
+                    && momMinInt <= dataBase.getMum(i).getSalary()
+                    && momMaxInt >= dataBase.getMum(i).getSalary()){
                 removeThisStudent(i);
                 i--;
             }
@@ -70,12 +74,12 @@ public class DeleteParentSalary {
     }
 
     private void removeThisStudent(int i){
-        deletedStud.add(Student.studentsList.get(i).getSurName() + " " +
-                Student.studentsList.get(i).getFirstName() + " " +
-                Student.studentsList.get(i).getSecondName());
-        Student.studentsList.remove(i);
-        Parent.fathersList.remove(i);
-        Parent.mothersList.remove(i);
+        deletedStud.add(dataBase.getStud(i).getSurName() + " " +
+                dataBase.getStud(i).getFirstName() + " " +
+                dataBase.getStud(i).getSecondName());
+        dataBase.delStud(i);
+        dataBase.delDad(i);
+        dataBase.delMum(i);
     }
     private void deleteInfo(){
         String output="";

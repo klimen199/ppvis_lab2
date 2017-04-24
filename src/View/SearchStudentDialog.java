@@ -1,6 +1,7 @@
 package View;
 
 import Controller.*;
+import Model.DataBase;
 import Model.Parent;
 import Model.Student;
 
@@ -13,10 +14,9 @@ import java.util.List;
 
 
 public class SearchStudentDialog {
-
+    private DataBase dataBase;
     JDialog dialog;
-    TablePanel tablePanel = new TablePanel(Student.studentsList, Parent.fathersList,Parent.mothersList);
-
+    TablePanel tablePanel;
 
     JTextField studentFirstName;
     JTextField studentSecondName;
@@ -37,13 +37,16 @@ public class SearchStudentDialog {
     JTextField numOfSistersMax;
     public Box mainBox;
 
-    public SearchStudentDialog(){
-        List<Student> studentsSearchList = new ArrayList<>(35);
-        studentsSearchList = Student.studentsList;
-        List<Parent> fathersSearchList = new ArrayList<>(35);
-        fathersSearchList = Parent.fathersList;
-        List<Parent> mothersSearchList = new ArrayList<>(35);
-        mothersSearchList = Parent.mothersList;
+    public SearchStudentDialog(DataBase dataBase){
+        this.dataBase = dataBase;
+//        List<Student> studentsSearchList = new ArrayList<>(35);
+//        studentsSearchList = Student.studentsList;
+//        List<Parent> fathersSearchList = new ArrayList<>(35);
+//        fathersSearchList = Parent.fathersList;
+//        List<Parent> mothersSearchList = new ArrayList<>(35);
+//        mothersSearchList = Parent.mothersList;
+
+        tablePanel = new TablePanel(dataBase.studentList, dataBase.fatherList, dataBase.motherList);
 
         dialog = new JDialog();
         mainBox = Box.createVerticalBox();
@@ -99,7 +102,8 @@ public class SearchStudentDialog {
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SearchStudentFIO temp = new SearchStudentFIO(studentSurName.getText(),studentFirstName.getText(),studentSecondName.getText());
+                SearchStudentFIO temp = new SearchStudentFIO(dataBase,
+                        studentSurName.getText(),studentFirstName.getText(),studentSecondName.getText());
                 tablePanel.setStudents(temp.getSearchStudList(),temp.getSearchDadList(),temp.getSearchMumList());
                 tablePanel.updateTable();
                // temp.getSearchRezult(studentSurName.toString(),studentFirstName.toString(),studentSecondName.toString());
@@ -140,7 +144,8 @@ public class SearchStudentDialog {
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SearchParentFIO temp = new SearchParentFIO(dadSurName.getText(),dadFirstName.getText(),dadSecondName.getText(),
+                SearchParentFIO temp = new SearchParentFIO(dataBase,
+                        dadSurName.getText(),dadFirstName.getText(),dadSecondName.getText(),
                         mumSurName.getText(),mumFirstName.getText(),mumSecondName.getText());
                 tablePanel.setStudents(temp.getSearchStudList(),temp.getSearchDadList(),temp.getSearchMumList());
                 tablePanel.updateTable();
@@ -196,8 +201,9 @@ public class SearchStudentDialog {
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SearchBrotherSister temp = new SearchBrotherSister(numOfBrothersMin.getText(),
-                        numOfBrothersMax.getText(), numOfSistersMin.getText(),numOfSistersMax.getText());
+                SearchBrotherSister temp = new SearchBrotherSister(dataBase,
+                        numOfBrothersMin.getText(), numOfBrothersMax.getText(),
+                        numOfSistersMin.getText(),numOfSistersMax.getText());
                 tablePanel.setStudents(temp.getSearchStudList(),temp.getSearchDadList(),temp.getSearchMumList());
                 tablePanel.updateTable();
             }
@@ -240,8 +246,9 @@ public class SearchStudentDialog {
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SearchParentSalary temp = new SearchParentSalary(dadSalaryMin.getText(),
-                        dadSalaryMax.getText(), mumSalaryMin.getText(),mumSalaryMax.getText());
+                SearchParentSalary temp = new SearchParentSalary(dataBase,
+                        dadSalaryMin.getText(), dadSalaryMax.getText(),
+                        mumSalaryMin.getText(),mumSalaryMax.getText());
                 tablePanel.setStudents(temp.getSearchStudList(),temp.getSearchDadList(),temp.getSearchMumList());
                 tablePanel.updateTable();
             }

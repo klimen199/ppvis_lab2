@@ -2,6 +2,7 @@ package View;
 
 
 import Controller.OkBtnInAdding;
+import Model.DataBase;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -10,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AddStudentDialog {
-
+    private DataBase dataBase;
     JDialog dialog;
 
     JTextField studentFirstName;
@@ -27,8 +28,8 @@ public class AddStudentDialog {
     JTextField numOfBrothers;
     JTextField numOfSisters;
 
-    public AddStudentDialog(){
-
+    public AddStudentDialog(DataBase dataBase){
+        this.dataBase = dataBase;
         dialog = new JDialog();
 
         Box studentForm = Box.createVerticalBox();
@@ -51,7 +52,8 @@ public class AddStudentDialog {
                 temp.addNewStudentInfo(getStudentSurName(), getStudentFirstName(), getStudentSecondName(),
                         getDadSurName(),getDadFirstName(),getDadSecondName(),getDadSalary(),
                         getMumSurName(),getMumFirstName(),getMumSecondName(),getMumSalary(),
-                        getBrotherNum(),getSisterNum());
+                        getBrotherNum(),getSisterNum(),
+                        dataBase);
 
                 ViewEntryPoint.tablePanel.updateTable();
             }

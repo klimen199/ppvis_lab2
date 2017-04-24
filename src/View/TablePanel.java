@@ -89,9 +89,6 @@ public class TablePanel extends JPanel{
         JButton nextPageButton = new JButton("Следующая");
         panelToolBar.add(nextPageButton);
 
-        ///
-        ///     ASK
-        ///
         nextPageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

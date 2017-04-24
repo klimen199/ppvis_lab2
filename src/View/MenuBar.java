@@ -2,12 +2,13 @@ package View;
 
 import javax.swing.*;
 import Controller.*;
+import Model.DataBase;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuBar {
-
+    private DataBase dataBase;
     JMenuBar menuBar;
     JMenu fileMenu;
     JMenuItem newFile;
@@ -20,7 +21,8 @@ public class MenuBar {
     JMenuItem deleteStudentTool;
     JMenuItem searchStudentTool;
 
-    public MenuBar(){
+    public MenuBar(DataBase dataBase){
+        this.dataBase = dataBase;
         menuBar = new JMenuBar();
 
         fileMenu = new JMenu("File");
@@ -48,7 +50,7 @@ public class MenuBar {
         addStudentTool.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog add = new AddStudentDialog().getDialog();
+                JDialog add = new AddStudentDialog(dataBase).getDialog();
                 add.setSize(555,500);
                 add.setVisible(true);
                 add.setLocationRelativeTo(null);
@@ -57,7 +59,7 @@ public class MenuBar {
         deleteStudentTool.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog del = new DeleteStudentDialog().getDialog();
+                JDialog del = new DeleteStudentDialog(dataBase).getDialog();
                 del.setSize(700,250);
                 del.setVisible(true);
                 del.setLocationRelativeTo(null);
@@ -66,7 +68,7 @@ public class MenuBar {
         searchStudentTool.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog search = new SearchStudentDialog().getDialog();
+                JDialog search = new SearchStudentDialog(dataBase).getDialog();
                 search.setSize(770,500);
                 search.setVisible(true);
                 search.setLocationRelativeTo(null);

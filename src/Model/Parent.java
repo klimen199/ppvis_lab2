@@ -7,9 +7,6 @@ import java.util.List;
  * Created by user on 02.04.2017.
  */
 public class Parent {
-    public static List<Parent> fathersList = new ArrayList<>(35);
-    public static List<Parent> mothersList = new ArrayList<>(35);
-
     String surName;
     String firstName;
     String secondName;

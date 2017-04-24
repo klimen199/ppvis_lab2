@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.DataBase;
 import Model.Parent;
 import Model.Student;
 
@@ -9,11 +10,13 @@ import java.util.List;
 
 
 public class SearchStudentFIO {
+    private DataBase dataBase;
     List<Student> studentsSearchList = new ArrayList<>(35);
     List<Parent> fathersSearchList = new ArrayList<>(35);
     List<Parent> mothersSearchList = new ArrayList<>(35);
 
-    public SearchStudentFIO (String surName, String firstName, String secName){
+    public SearchStudentFIO (DataBase dataBase, String surName, String firstName, String secName){
+        this.dataBase = dataBase;
         if (surName.equals("")){
             JOptionPane.showMessageDialog(null, "Fill student's Surname.");
             notChangeTable();
@@ -25,8 +28,8 @@ public class SearchStudentFIO {
             return;
         }
         if (firstName.equals("") && secName.equals("")){
-            for (int i = 0; i < Student.studentsList.size();i++){
-                if (surName.equals(Student.studentsList.get(i).getSurName())){
+            for (int i = 0; i < dataBase.size();i++){
+                if (surName.equals(dataBase.getStud(i).getSurName())){
                     addThisStudent(i);
                 }
             }
@@ -34,10 +37,10 @@ public class SearchStudentFIO {
             return;
         }
         if (!(firstName.equals("") && secName.equals(""))){
-            for (int i = 0; i < Student.studentsList.size();i++){
-                if (surName.equals(Student.studentsList.get(i).getSurName()) &&
-                        firstName.equals(Student.studentsList.get(i).getFirstName()) &&
-                        secName.equals(Student.studentsList.get(i).getSecondName())){
+            for (int i = 0; i < dataBase.size();i++){
+                if (surName.equals(dataBase.getStud(i).getSurName()) &&
+                        firstName.equals(dataBase.getStud(i).getFirstName()) &&
+                        secName.equals(dataBase.getStud(i).getSecondName())){
                     addThisStudent(i);
                 }
             }
@@ -47,15 +50,15 @@ public class SearchStudentFIO {
     }
 
     private void notChangeTable(){
-        studentsSearchList = Student.studentsList;
-        fathersSearchList = Parent.fathersList;
-        mothersSearchList = Parent.mothersList;
+        studentsSearchList = dataBase.studentList;
+        fathersSearchList = dataBase.fatherList;
+        mothersSearchList = dataBase.motherList;
     }
 
     private void addThisStudent(int i){
-        studentsSearchList.add(Student.studentsList.get(i));
-        fathersSearchList.add(Parent.fathersList.get(i));
-        mothersSearchList.add(Parent.mothersList.get(i));
+        studentsSearchList.add(dataBase.getStud(i));
+        fathersSearchList.add(dataBase.getDad(i));
+        mothersSearchList.add(dataBase.getMum(i));
     }
 
     private void checkIsEmpty(){
@@ -74,5 +77,4 @@ public class SearchStudentFIO {
     public List getSearchMumList(){
         return mothersSearchList;
     }
-
 }

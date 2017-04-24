@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.DataBase;
 import Model.Parent;
 import Model.Student;
 import View.ViewEntryPoint;
@@ -12,12 +13,14 @@ import java.util.List;
  * Created by user on 24.04.2017.
  */
 public class DeleteParentFIO {
-
+    private DataBase dataBase;
     private List<String> deletedStud = new ArrayList<>(35);
 
 
-    public DeleteParentFIO(String dadSurName, String dadFirstName, String dadSecName,
+    public DeleteParentFIO(DataBase dataBase,
+                           String dadSurName, String dadFirstName, String dadSecName,
                            String mumSurName, String mumFirstName, String mumSecName){
+        this.dataBase = dataBase;
         boolean goNext = false;
         if (!(dadSurName.equals("") || dadFirstName.equals("") || dadSecName.equals(""))){
             goNext = true;
@@ -31,10 +34,10 @@ public class DeleteParentFIO {
         }
         if (!(dadSurName.equals("") && dadFirstName.equals("") && dadSecName.equals("")) &&
                 (mumSurName.equals("") || mumFirstName.equals("") || mumSecName.equals(""))){
-            for (int i = 0; i < Parent.fathersList.size(); i++){
-                if(dadSurName.equals(Parent.fathersList.get(i).getSurName()) &&
-                        dadFirstName.equals(Parent.fathersList.get(i).getFirstName()) &&
-                        dadSecName.equals(Parent.fathersList.get(i).getSecondName())){
+            for (int i = 0; i < dataBase.size(); i++){
+                if(dadSurName.equals(dataBase.getDad(i).getSurName()) &&
+                        dadFirstName.equals(dataBase.getDad(i).getFirstName()) &&
+                        dadSecName.equals(dataBase.getDad(i).getSecondName())){
                     removeThisStudent(i);
                     i--;
                 }
@@ -44,10 +47,10 @@ public class DeleteParentFIO {
         }
         if (!(mumSurName.equals("") && mumFirstName.equals("") && mumSecName.equals("")) &&
                 (dadSurName.equals("") || dadFirstName.equals("") || dadSecName.equals(""))){
-            for (int i = 0; i < Parent.mothersList.size(); i++){
-                if(mumSurName.equals(Parent.mothersList.get(i).getSurName()) &&
-                        mumFirstName.equals(Parent.mothersList.get(i).getFirstName()) &&
-                        mumSecName.equals(Parent.mothersList.get(i).getSecondName())){
+            for (int i = 0; i < dataBase.size(); i++){
+                if(mumSurName.equals(dataBase.getMum(i).getSurName()) &&
+                        mumFirstName.equals(dataBase.getMum(i).getFirstName()) &&
+                        mumSecName.equals(dataBase.getMum(i).getSecondName())){
                     removeThisStudent(i);
                     i--;
                 }
@@ -57,13 +60,13 @@ public class DeleteParentFIO {
         }
         if (!("".equals(mumSurName) && mumFirstName.equals("") && mumSecName.equals("")) &&
                 !(dadSurName.equals("") && dadFirstName.equals("") && dadSecName.equals(""))){
-            for (int i = 0; i < Parent.mothersList.size(); i++){
-                if(mumSurName.equals(Parent.mothersList.get(i).getSurName()) &&
-                        mumFirstName.equals(Parent.mothersList.get(i).getFirstName()) &&
-                        mumSecName.equals(Parent.mothersList.get(i).getSecondName()) &&
-                        dadSurName.equals(Parent.fathersList.get(i).getSurName()) &&
-                        dadFirstName.equals(Parent.fathersList.get(i).getFirstName()) &&
-                        dadSecName.equals(Parent.fathersList.get(i).getSecondName())){
+            for (int i = 0; i < dataBase.size(); i++){
+                if(mumSurName.equals(dataBase.getMum(i).getSurName()) &&
+                        mumFirstName.equals(dataBase.getMum(i).getFirstName()) &&
+                        mumSecName.equals(dataBase.getMum(i).getSecondName()) &&
+                        dadSurName.equals(dataBase.getDad(i).getSurName()) &&
+                        dadFirstName.equals(dataBase.getDad(i).getFirstName()) &&
+                        dadSecName.equals(dataBase.getDad(i).getSecondName())){
                     removeThisStudent(i);
                     i--;
                 }
@@ -74,12 +77,12 @@ public class DeleteParentFIO {
 
 
     private void removeThisStudent(int i){
-        deletedStud.add(Student.studentsList.get(i).getSurName() + " " +
-                Student.studentsList.get(i).getFirstName() + " " +
-                Student.studentsList.get(i).getSecondName());
-        Student.studentsList.remove(i);
-        Parent.fathersList.remove(i);
-        Parent.mothersList.remove(i);
+        deletedStud.add(dataBase.getStud(i).getSurName() + " " +
+                dataBase.getStud(i).getFirstName() + " " +
+                dataBase.getStud(i).getSecondName());
+        dataBase.delStud(i);
+        dataBase.delDad(i);
+        dataBase.delMum(i);
     }
     private void deleteInfo(){
         String output="";

@@ -1,15 +1,18 @@
 package View;
 
+import Model.DataBase;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
 public class ToolBar {
+    private DataBase dataBase;
     public JToolBar toolBar;
 
-    public ToolBar(){
-
+    public ToolBar(DataBase dataBase){
+        this.dataBase = dataBase;
         ImageIcon newFileIcon = new ImageIcon(".\\src\\View\\images\\addFileIcon.png");
         JButton addNewFile = new JButton(newFileIcon);
 
@@ -47,7 +50,7 @@ public class ToolBar {
         addStudent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog add = new AddStudentDialog().getDialog();
+                JDialog add = new AddStudentDialog(dataBase).getDialog();
                 add.setSize(555,500);
                 add.setVisible(true);
                 add.setLocationRelativeTo(null);
@@ -56,7 +59,7 @@ public class ToolBar {
         deleteStudent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog del = new DeleteStudentDialog().getDialog();
+                JDialog del = new DeleteStudentDialog(dataBase).getDialog();
                 del.setSize(700,250);
                 del.setVisible(true);
                 del.setLocationRelativeTo(null);
@@ -65,7 +68,7 @@ public class ToolBar {
         searchStudent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog search = new SearchStudentDialog().getDialog();
+                JDialog search = new SearchStudentDialog(dataBase).getDialog();
                 search.setSize(770,500);
                 search.setVisible(true);
                 search.setLocationRelativeTo(null);

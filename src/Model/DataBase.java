@@ -19,15 +19,15 @@ public class DataBase {
         motherList.add(mum);
     }
 
-    public void deleteStud(int index)
+    public void delStud(int index)
     {
         studentList.remove(index);
     }
-    public void deleteDad(int index)
+    public void delDad(int index)
     {
         fatherList.remove(index);
     }
-    public void deleteMum(int index)
+    public void delMum(int index)
     {
         motherList.remove(index);
     }
