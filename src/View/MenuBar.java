@@ -3,6 +3,7 @@ package View;
 import javax.swing.*;
 import Controller.*;
 import Model.DataBase;
+import Model.Student;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +21,7 @@ public class MenuBar {
     JMenuItem addStudentTool;
     JMenuItem deleteStudentTool;
     JMenuItem searchStudentTool;
+    Parser theParser = new Parser(dataBase);
 
     public MenuBar(DataBase dataBase){
         this.dataBase = dataBase;
@@ -45,6 +47,25 @@ public class MenuBar {
         searchStudentTool = new JMenuItem("Search");
         toolsMenu.add(searchStudentTool);
 
+        newFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NewFile createNewFile = new NewFile(dataBase);
+            }
+        });
+        saveFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                theParser.saveFile(dataBase);
+            }
+        });
+        openFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                theParser.openFile(dataBase);
+                ViewEntryPoint.tablePanel.updateTable();
+            }
+        });
         exitItem.addActionListener(new ExitProgramListener());
 
         addStudentTool.addActionListener(new ActionListener() {

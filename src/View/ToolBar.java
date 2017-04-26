@@ -1,5 +1,7 @@
 package View;
 
+import Controller.NewFile;
+import Controller.Parser;
 import Model.DataBase;
 
 import javax.swing.*;
@@ -10,6 +12,7 @@ import java.awt.event.ActionListener;
 public class ToolBar {
     private DataBase dataBase;
     public JToolBar toolBar;
+    Parser theParser = new Parser(dataBase);
 
     public ToolBar(DataBase dataBase){
         this.dataBase = dataBase;
@@ -47,6 +50,26 @@ public class ToolBar {
         toolBar.add(deleteStudent);
         toolBar.add(searchStudent);
 
+
+        addNewFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NewFile createNewFile = new NewFile(dataBase);
+            }
+        });
+        saveFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                theParser.saveFile(dataBase);
+            }
+        });
+        openFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                theParser.openFile(dataBase);
+                ViewEntryPoint.tablePanel.updateTable();
+            }
+        });
         addStudent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

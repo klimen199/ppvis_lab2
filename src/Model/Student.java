@@ -22,6 +22,9 @@ public class Student {
     public String getSurName(){return surName;}
     public String getFirstName(){return firstName;}
     public String getSecondName(){return secondName;}
+    public String getFullName(){
+        return (surName + firstName + secondName);
+    }
     public int getBrotherNum(){return brotherNum;}
     public int getSisterNum(){return sisterNum;}
 }

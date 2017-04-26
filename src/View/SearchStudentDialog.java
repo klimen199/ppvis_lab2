@@ -2,15 +2,11 @@ package View;
 
 import Controller.*;
 import Model.DataBase;
-import Model.Parent;
-import Model.Student;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class SearchStudentDialog {

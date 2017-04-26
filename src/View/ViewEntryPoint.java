@@ -14,6 +14,7 @@ public class ViewEntryPoint {
     public DataBase dataBase = new DataBase();
     private JFrame frame = new JFrame();
     public static TablePanel tablePanel;
+    JTable tableStudents = new JTable();
 
     public ViewEntryPoint(){
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
