@@ -11,19 +11,22 @@ import java.awt.event.ActionListener;
 public class MenuBar {
     private DataBase dataBase;
     JMenuBar menuBar;
-    JMenu fileMenu;
-    JMenuItem newFile;
-    JMenuItem openFile;
-    JMenuItem saveFile;
-    JMenuItem exitItem;
 
-    JMenu toolsMenu;
-    JMenuItem addStudentTool;
-    JMenuItem deleteStudentTool;
-    JMenuItem searchStudentTool;
     Parser theParser = new Parser(dataBase);
 
     public MenuBar(DataBase dataBase){
+        JMenu fileMenu;
+        JMenuItem newFile;
+        JMenuItem openFile;
+        JMenuItem saveFile;
+        JMenuItem exitItem;
+
+        JMenu toolsMenu;
+        JMenuItem addStudentTool;
+        JMenuItem deleteStudentTool;
+        JMenuItem searchStudentTool;
+        JMenuItem generateNotes;
+
         this.dataBase = dataBase;
         menuBar = new JMenuBar();
 
@@ -46,6 +49,8 @@ public class MenuBar {
         toolsMenu.add(deleteStudentTool);
         searchStudentTool = new JMenuItem("Search");
         toolsMenu.add(searchStudentTool);
+        generateNotes = new JMenuItem("Generate");
+        toolsMenu.add(generateNotes);
 
         newFile.addActionListener(new ActionListener() {
             @Override
@@ -93,6 +98,13 @@ public class MenuBar {
                 search.setSize(770,500);
                 search.setVisible(true);
                 search.setLocationRelativeTo(null);
+            }
+        });
+        generateNotes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddRandomNote temp = new AddRandomNote(dataBase);
+                ViewEntryPoint.tablePanel.updateTable();
             }
         });
 

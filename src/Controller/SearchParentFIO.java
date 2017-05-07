@@ -45,9 +45,10 @@ public class SearchParentFIO {
         if (!(mumSurName.equals("") && mumFirstName.equals("") && mumSecName.equals("")) &&
                 (dadSurName.equals("") || dadFirstName.equals("") || dadSecName.equals(""))){
             for (int i = 0; i < dataBase.size(); i++){
-                if(mumSurName.equals(dataBase.getMum(i).getSurName()) &&
-                        mumFirstName.equals(dataBase.getMum(i).getFirstName()) &&
-                        mumSecName.equals(dataBase.getMum(i).getSecondName())){
+                Parent mum = dataBase.getMum(i);
+                if(mumSurName.equals(mum.getSurName()) &&
+                        mumFirstName.equals(mum.getFirstName()) &&
+                        mumSecName.equals(mum.getSecondName())){
                     addThisStudent(i);
                 }
             }
