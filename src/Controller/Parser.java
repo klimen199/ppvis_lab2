@@ -3,6 +3,7 @@ package Controller;
 import Model.DataBase;
 import Model.Parent;
 import Model.Student;
+import View.ViewEntryPoint;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -87,7 +88,10 @@ public class Parser {
                 String mumSalary = "";
                 String brotherNum = "";
                 String sisterNum = "";
-
+                dataBase2.studentList.clear();
+                dataBase2.fatherList.clear();
+                dataBase2.motherList.clear();
+                ViewEntryPoint.tablePanel.updateTable();
                 XMLStreamReader xmlReader = XMLInputFactory.newInstance()
                         .createXMLStreamReader(fileName, new FileInputStream(fileName));
                 while (xmlReader.hasNext()){

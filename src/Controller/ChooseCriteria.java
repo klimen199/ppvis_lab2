@@ -9,33 +9,33 @@ public class ChooseCriteria {
 
     public Box addCriteria(Box mainBox, JComboBox criteria,
                            Box studentFIOBox, Box parentFIOBox, Box brotherSisterBox, Box parentSalaryBox) {
-        int choice = criteria.getSelectedIndex();
+        String choice = (String)criteria.getSelectedItem();
         switch (choice){
-            case 0:{
+            case "":{
                 mainBox.remove(2);
                 mainBox.add(Box.createVerticalStrut(1),2);
                 mainBox.revalidate();
                 break;
             }
-            case 1:{
+            case "ФИО студента":{
                 mainBox.remove(2);
                 mainBox.add(studentFIOBox,2);
                 mainBox.revalidate();
                 break;
             }
-            case 2:{
+            case "ФИО родителя":{
                 mainBox.remove(2);
                 mainBox.add(parentFIOBox,2);
                 mainBox.revalidate();
                 break;
             }
-            case 3:{
+            case "Число братьев/сестер":{
                 mainBox.remove(2);
                 mainBox.add(brotherSisterBox, 2);
                 mainBox.revalidate();
                 break;
             }
-            case 4:{
+            case "З/п родителя":{
                 mainBox.remove(2);
                 mainBox.add(parentSalaryBox, 2);
                 mainBox.revalidate();
